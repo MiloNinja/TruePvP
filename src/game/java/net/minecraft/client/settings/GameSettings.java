@@ -215,6 +215,7 @@ public class GameSettings {
 	public boolean hasShownProfanityFilter = false;
 	public float touchControlOpacity = 1.0f;
 	public boolean hideDefaultUsernameWarning = false;
+	public boolean cpsCounterEnabled = true;
 	public boolean hideVideoSettingsWarning = EagRuntime.getPlatformType() == EnumPlatformType.DESKTOP;
 
 	public int voiceListenRadius = 16;
@@ -1139,6 +1140,10 @@ public class GameSettings {
 						this.hideDefaultUsernameWarning = astring[1].equals("true");
 					}
 
+					if (astring[0].equals("cpsCounterEnabled")) {
+						this.cpsCounterEnabled = astring[1].equals("true");
+					}
+
 					if (astring[0].equals("hideVideoSettingsWarning")) {
 						hideVideoSettingsWarning = astring[1].equals("true");
 					}
@@ -1305,6 +1310,7 @@ public class GameSettings {
 			printwriter.println("screenRecordMicVolume:" + this.screenRecordMicVolume);
 			printwriter.println("touchControlOpacity:" + this.touchControlOpacity);
 			printwriter.println("hideDefaultUsernameWarning:" + this.hideDefaultUsernameWarning);
+			printwriter.println("cpsCounterEnabled:" + this.cpsCounterEnabled);
 			printwriter.println("hideVideoSettingsWarning:" + this.hideVideoSettingsWarning);
 			printwriter.println("betterGrassOF:" + this.betterGrassOF);
 			printwriter.println("connectedTexturesOF:" + this.connectedTexturesOF);

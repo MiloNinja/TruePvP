@@ -12,6 +12,8 @@ import net.lax1dude.eaglercraft.v1_8.PointerInputAbstraction;
 import net.lax1dude.eaglercraft.v1_8.Touch;
 import net.lax1dude.eaglercraft.v1_8.minecraft.EaglerTextureAtlasSprite;
 
+import net.lax1dude.eaglercraft.v1_8.Mouse;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -120,6 +122,13 @@ public class GuiIngame extends Gui {
 	 */
 	private long healthUpdateCounter = 0L;
 
+	// CPS counter fields
+	private int cpsClickCount = 0;
+	private long cpsLastReset = 0L;
+	private float currentCps = 0.0F;
+	private boolean wasLeftMouseDown = false;
+	private boolean wasRightMouseDown = false;
+
 	public GuiIngame(Minecraft mcIn) {
 		this.mc = mcIn;
 		this.itemRenderer = mcIn.getRenderItem();
@@ -145,6 +154,28 @@ public class GuiIngame extends Gui {
 		GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 		GlStateManager.enableDepth();
 		GlStateManager.disableLighting();
+
+		// CPS counter logic
+		long now = System.currentTimeMillis();
+		if (now - cpsLastReset >= 1000L) {
+			currentCps = cpsClickCount;
+			cpsClickCount = 0;
+			cpsLastReset = now;
+		}
+		try {
+			boolean isLeftMouseDown = Mouse.isButtonDown(0);
+			boolean isRightMouseDown = Mouse.isButtonDown(1);
+			if (isLeftMouseDown && !wasLeftMouseDown) {
+				cpsClickCount++;
+			}
+			if (isRightMouseDown && !wasRightMouseDown) {
+				cpsClickCount++;
+			}
+			wasLeftMouseDown = isLeftMouseDown;
+			wasRightMouseDown = isRightMouseDown;
+		} catch (Exception e) {
+			// Ignore if Mouse not available
+		}
 
 		ItemStack itemstack = this.mc.thePlayer.inventory.armorItemInSlot(3);
 		if (this.mc.gameSettings.thirdPersonView == 0 && itemstack != null
@@ -216,6 +247,15 @@ public class GuiIngame extends Gui {
 				GlStateManager.disableBlend();
 				GlStateManager.popMatrix();
 			}
+		}
+
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		// Display CPS counter in multiplayer
+		if (this.mc.getCurrentServerData() != null && this.mc.gameSettings.cpsCounterEnabled) {
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(2.0F, 2.0F, 0.0F);
+			this.getFontRenderer().drawString("CPS: " + (int) currentCps, 0, 0, 0xFFFFFF);
+			GlStateManager.popMatrix();
 		}
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

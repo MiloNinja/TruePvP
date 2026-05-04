@@ -100,6 +100,7 @@ public class GuiIngameMenu extends GuiScreen {
 								new Object[0]),
 						PauseMenuCustomizeState.icon_discord_L, PauseMenuCustomizeState.icon_discord_L_aspect,
 						PauseMenuCustomizeState.icon_discord_R, PauseMenuCustomizeState.icon_discord_R_aspect));
+		this.buttonList.add(new GuiButton(12, this.width / 2 - 100, this.height / 4 + 120 + b0, 200, 20, "TruePvP Settings"));
 		this.buttonList.add(new GuiButtonWithStupidIcons(5, this.width / 2 - 100, this.height / 4 + 48 + b0, 98, 20,
 				I18n.format("gui.achievements", new Object[0]), PauseMenuCustomizeState.icon_achievements_L,
 				PauseMenuCustomizeState.icon_achievements_L_aspect, PauseMenuCustomizeState.icon_achievements_R,
@@ -173,6 +174,9 @@ public class GuiIngameMenu extends GuiScreen {
 				this.mc.displayGuiScreen(GuiScreenLANInfo.showLANInfoScreen(
 						new GuiShareToLan(this, this.mc.playerController.getCurrentGameType().getName())));
 			}
+			break;
+		case 12:
+			this.mc.displayGuiScreen(new GuiScreenTruePvPSettings(this, this.mc.gameSettings));
 			break;
 		case 8:
 			if (PauseMenuCustomizeState.discordButtonMode == PauseMenuCustomizeState.DISCORD_MODE_INVITE_URL

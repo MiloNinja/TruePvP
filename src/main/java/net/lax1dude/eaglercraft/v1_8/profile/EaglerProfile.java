@@ -455,7 +455,7 @@ public class EaglerProfile {
 
 	static {
 		String[] defaultNames = new String[] {
-				"Yeeish", "Yeeish", "Yee", "Yee", "Yeer", "Yeeler", "Eagler", "Eagl",
+				"TruePvP", "TruePvP", "Client", "User", "Player", "Gamer", "PvP", "True",
 				"Darver", "Darvler", "Vool", "Vigg", "Vigg", "Deev", "Yigg", "Yeeg"
 		};
 		

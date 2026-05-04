@@ -9,7 +9,7 @@ public class EaglercraftVersion {
 	
 	/// Customize these to fit your fork:
 	
-	public static final String projectForkName = "EaglercraftX";
+	public static final String projectForkName = "TruePvP";
 	public static final String projectForkVersion = "u53";
 	public static final String projectForkVendor = "lax1dude";
 	
@@ -17,7 +17,7 @@ public class EaglercraftVersion {
 	
 	//////////////////////////////////////////////////////////////////////
 	
-	public static final String projectOriginName = "EaglercraftX";
+	public static final String projectOriginName = "TruePvP";
 	public static final String projectOriginAuthor = "lax1dude";
 	public static final String projectOriginRevision = "1.8";
 	public static final String projectOriginVersion = "u53";
@@ -30,7 +30,7 @@ public class EaglercraftVersion {
 	
 	// Updating configuration
 	
-	public static final boolean enableUpdateService = true;
+	public static final boolean enableUpdateService = false;
 
 	public static final String updateBundlePackageName = "net.lax1dude.eaglercraft.v1_8.client";
 	public static final int updateBundlePackageVersionInt = 53;
